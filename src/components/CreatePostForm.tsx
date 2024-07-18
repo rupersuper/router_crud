@@ -1,16 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-type Post = {
-  id: number;
-  content: string;
-  created: number;
-};
-
-const CreatePost = () => {
-  const [posts, setPosts] = React.useState<Post[]>([]);
+const CreatePostForm = () => {
   const [newPostContent, setNewPostContent] = React.useState("");
+  const navigate = useNavigate();
 
   const handleCreatePost = () => {
+    if (!newPostContent.trim()) {
+      navigate("/");
+      return;
+    }
+
     const newPost = {
       content: newPostContent,
     };
@@ -21,15 +21,8 @@ const CreatePost = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newPost),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setPosts((prevPosts) => [json, ...prevPosts]);
-        setNewPostContent("");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    });
+    navigate("/");
   };
 
   return (
@@ -48,10 +41,12 @@ const CreatePost = () => {
             className="hover:text-blue-500 bg-slate-100 w-2/6"
             onClick={handleCreatePost}
           >
-            Создать пост
+            Сохранить
           </button>
         </div>
       </div>
     </div>
   );
 };
+
+export default CreatePostForm;
