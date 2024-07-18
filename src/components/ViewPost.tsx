@@ -33,11 +33,11 @@ const ViewPost = () => {
     fetch(`http://localhost:7070/posts/${id}`, {
       method: "DELETE",
     })
-      .then((response) => {
-        if (response.ok) {
+      .then((res) => {
+        if (res.ok) {
           navigate("/");
         } else {
-          return response.json().then((error) => {
+          return res.json().then((error) => {
             throw new Error(error);
           });
         }
