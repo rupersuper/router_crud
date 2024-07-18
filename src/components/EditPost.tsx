@@ -3,7 +3,7 @@ import React from "react";
 
 const EditPost = () => {
   const { id } = useParams();
-  const [content, setContent] = React.useState("");
+  const [content, setContent] = React.useState<string>("");
   const navigate = useNavigate();
 
   React.useEffect(() => {
